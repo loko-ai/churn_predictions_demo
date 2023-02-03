@@ -1,0 +1,1047 @@
+{
+  "name": "churn_predictions_demo",
+  "id": "churn_predictions_demo",
+  "description": "",
+  "created_on": "23/01/2023, 08:44:04",
+  "last_modify": "03/02/2023, 17:15:48",
+  "graphs": {
+    "main": {
+      "nodes": [
+        {
+          "id": "5252a6ca-dd73-49ac-b9ef-937fe7052e73",
+          "position": {
+            "x": 571,
+            "y": 169
+          },
+          "type": "custom",
+          "dragHandle": "#nodeHandle",
+          "sourcePosition": "right",
+          "targetPosition": "left",
+          "width": 150,
+          "height": 88,
+          "selected": false,
+          "dragging": false,
+          "data": {
+            "name": "CSV Reader",
+            "events": null,
+            "description": "### Description\nThe CSV READER component allows reading files in csv format. \n\nYou have the possibility to set a separator using the **Separator** parameter. The **Infer types** parameter allows the automatic transformation of the type of non-textual fields.\n\n### Input\nThe input required by this component is the file path in PosixPath format. However, the file path can also be defined when the component is created, in which case no input is required.\n\n### Output\nThe submitted file is returned row by row, where each row is represented by a dictionary that has the column names as keys.",
+            "inputs": [
+              {
+                "id": "input",
+                "label": "input"
+              }
+            ],
+            "outputs": [
+              {
+                "id": "output",
+                "label": "output"
+              }
+            ],
+            "configured": true,
+            "options": {
+              "group": "Inputs",
+              "args": [
+                {
+                  "name": "comment",
+                  "type": "area",
+                  "label": "Node comment",
+                  "helper": "Use it to explain the usage of this node"
+                },
+                {
+                  "name": "alias",
+                  "type": "text",
+                  "label": "Name",
+                  "helper": "Use this name as an alias"
+                },
+                {
+                  "name": "debug",
+                  "type": "boolean",
+                  "label": "Debug to Console",
+                  "divider": true
+                },
+                {
+                  "name": "value",
+                  "type": "files",
+                  "label": "File",
+                  "fragment": "files",
+                  "helper": "choose a file or read input"
+                },
+                {
+                  "name": "separator",
+                  "type": "text",
+                  "label": "Separator"
+                },
+                {
+                  "name": "df",
+                  "type": "boolean",
+                  "label": "Dask Dataframe"
+                },
+                {
+                  "name": "infer_type",
+                  "type": "boolean",
+                  "label": "Infer types"
+                },
+                {
+                  "name": "propagate",
+                  "type": "boolean",
+                  "label": "Flush at the end"
+                }
+              ],
+              "click": "Send file",
+              "icon": "RiFileChart2Fill",
+              "values": {
+                "comment": "",
+                "alias": "Train",
+                "debug": false,
+                "separator": ",",
+                "df": false,
+                "infer_type": true,
+                "propagate": true,
+                "value": {
+                  "name": "churn_train.csv",
+                  "path": "data/projects/churn_predictions_demo/data/churn_train.csv",
+                  "parent": "data/projects/churn_predictions_demo/data",
+                  "isDir": false,
+                  "hidden": false
+                }
+              }
+            },
+            "locked": null
+          },
+          "selectable": true,
+          "draggable": true,
+          "positionAbsolute": {
+            "x": 471,
+            "y": 98
+          },
+          "__class__": "Node"
+        },
+        {
+          "id": "3c30dc9b-9dc3-4a6a-b0e6-a911a4b92f3a",
+          "position": {
+            "x": 799,
+            "y": 142
+          },
+          "type": "custom",
+          "dragHandle": "#nodeHandle",
+          "sourcePosition": "right",
+          "targetPosition": "left",
+          "width": 150,
+          "height": 56,
+          "selected": false,
+          "dragging": false,
+          "data": {
+            "name": "Selector",
+            "events": null,
+            "description": "### Description\nThe SELECTOR component is used to select the value of one or more object keys. The required key/s are defined using the parameter **Keys**.\n\nIn order to add other keys you need to click on the **\"Add field\"** button.\n\nIf the field **Ignore Error** is toggled, missing keys are ignored.\n\nIt's also possible to select nested key, just by writing them in a *key* field, and seperating them using a full stop. Let's consider the object in the example below: if you want to have access to the content of the \"key3\" object, you need to use the following notation \"key1.key2.key3\".\n\n\n```json\n {\"key1\":{\"key2\":{\"key3\":[\"val1\", \"val2\", \"val3\"]}}} \n```\n\n\n\n### Input\n\nThe input consists of a dictionary.\n\n\n\n### Output\n\nThe output is the value of the required key of the dictionary received as input, if only one key is selected; otherwise it's an object which contains the keys specified and their value.\n",
+            "inputs": [
+              {
+                "id": "input",
+                "label": "input"
+              }
+            ],
+            "outputs": [
+              {
+                "id": "output",
+                "label": "output"
+              }
+            ],
+            "configured": true,
+            "options": {
+              "group": "Common",
+              "args": [
+                {
+                  "name": "comment",
+                  "type": "area",
+                  "label": "Node comment",
+                  "helper": "Use it to explain the usage of this node"
+                },
+                {
+                  "name": "alias",
+                  "type": "text",
+                  "label": "Name",
+                  "helper": "Use this name as an alias"
+                },
+                {
+                  "name": "debug",
+                  "type": "boolean",
+                  "label": "Debug to Console",
+                  "divider": true
+                },
+                {
+                  "name": "ignore_err",
+                  "label": "Ignor Error",
+                  "type": "boolean",
+                  "description": "Choose whether to ignore error in case of a missing key or not"
+                },
+                {
+                  "name": "exclude",
+                  "label": "Exclude Keys",
+                  "type": "boolean",
+                  "description": "If enabled, the output contains the whole input object excluding the specified keys; otherwise, only the specified keys are returned"
+                },
+                {
+                  "name": "keys",
+                  "label": "Keys",
+                  "type": "multiKeyValue",
+                  "validation": {
+                    "required": "Required field"
+                  },
+                  "description": "Name of the key/s to select from the incoming message",
+                  "fields": [
+                    {
+                      "name": "k",
+                      "placeholder": "key",
+                      "validation": {
+                        "required": "Required field"
+                      }
+                    }
+                  ]
+                }
+              ],
+              "click": null,
+              "icon": "RiCursorFill",
+              "values": {
+                "comment": "We see several features that essentially have 100% correlation with one another. Including these feature pairs in some machine learning algorithms can create catastrophic problems, while in others it will only introduce minor redundancy and bias. Let's remove one feature from each of the highly correlated pairs: Day Charge from the pair with Day Mins, Night Charge from the pair with Night Mins, Intl Charge from the pair with Intl Mins",
+                "alias": "",
+                "debug": false,
+                "ignore_err": false,
+                "exclude": true,
+                "keys": [
+                  {
+                    "k": "Day Charge",
+                    "id": "4196870f-a323-4b0e-b3f5-d1f1e9e16701"
+                  },
+                  {
+                    "k": "Eve Charge",
+                    "id": "519ec243-6cc1-4324-a9c3-c3452aa19e9c"
+                  },
+                  {
+                    "k": "Night Charge",
+                    "id": "5efdd94b-6a8a-4e4b-9a54-c00c41433a23"
+                  },
+                  {
+                    "k": "Intl Charge",
+                    "id": "6a85a2a1-3023-4ccf-81bd-495f2cb84ca8"
+                  },
+                  {
+                    "k": "Phone",
+                    "id": "f8c23388-20ef-4a15-964c-18b17d8aebaf"
+                  }
+                ]
+              }
+            },
+            "locked": null
+          },
+          "selectable": true,
+          "draggable": true,
+          "positionAbsolute": {
+            "x": 699,
+            "y": 71
+          },
+          "__class__": "Node"
+        },
+        {
+          "id": "f28128f4-99b4-42c2-81b0-04da59e3d95b",
+          "position": {
+            "x": 1030.775249709993,
+            "y": 159
+          },
+          "type": "custom",
+          "dragHandle": "#nodeHandle",
+          "sourcePosition": "right",
+          "targetPosition": "left",
+          "width": 150,
+          "height": 56,
+          "selected": false,
+          "dragging": false,
+          "data": {
+            "name": "Function",
+            "events": null,
+            "description": "### Description\nThe FUNCTION component is used to apply Python code to the input component's. The input can be retrieved using the variable *data*.\n\nTo be able to use data from components of type FUNCTION that are not linked together, the object is set repository.\n\n```python\nrepository.set('value', 5) - this sets the variable value to 5.\nrepository.get('value') - in this way the variable is called value and the value 5 is returned.\n```\n\n### Input\nThe input is used by the component using the variable **data**.\n\n### Output\nThe output coincides with the return of the code defined when the component was created.",
+            "inputs": [
+              {
+                "id": "input",
+                "label": "input"
+              }
+            ],
+            "outputs": [
+              {
+                "id": "output",
+                "label": "output"
+              }
+            ],
+            "configured": true,
+            "options": {
+              "group": "Common",
+              "args": [
+                {
+                  "name": "comment",
+                  "type": "area",
+                  "label": "Node comment",
+                  "helper": "Use it to explain the usage of this node"
+                },
+                {
+                  "name": "alias",
+                  "type": "text",
+                  "label": "Name",
+                  "helper": "Use this name as an alias"
+                },
+                {
+                  "name": "debug",
+                  "type": "boolean",
+                  "label": "Debug to Console",
+                  "divider": true
+                },
+                {
+                  "name": "propagate",
+                  "type": "boolean",
+                  "label": "Flush at the end"
+                },
+                {
+                  "name": "notify_warnings",
+                  "type": "boolean",
+                  "label": "Notify warnings"
+                },
+                {
+                  "name": "code",
+                  "type": "code",
+                  "description": "A python function that processes the incoming message. \nVariables available are:\n- **data**: the incoming message\n",
+                  "label": "Code",
+                  "validation": {
+                    "required": "Required field"
+                  },
+                  "fragment": null,
+                  "advanced": false,
+                  "options": null,
+                  "value": null
+                }
+              ],
+              "click": null,
+              "icon": "RiCodeSSlashFill",
+              "values": {
+                "comment": "",
+                "alias": "2Object",
+                "debug": false,
+                "propagate": true,
+                "notify_warnings": true,
+                "code": "row = data.copy()\nrow['Area Code'] = str(row['Area Code'])\nreturn row"
+              }
+            },
+            "locked": null
+          },
+          "selectable": true,
+          "draggable": true,
+          "positionAbsolute": {
+            "x": 930.775249709993,
+            "y": 88
+          },
+          "__class__": "Node"
+        },
+        {
+          "id": "8bc68946-29e9-4b38-950d-9ccb534b3d30",
+          "position": {
+            "x": 564,
+            "y": 325
+          },
+          "type": "custom",
+          "dragHandle": "#nodeHandle",
+          "sourcePosition": "right",
+          "targetPosition": "left",
+          "width": 150,
+          "height": 104,
+          "selected": false,
+          "dragging": false,
+          "data": {
+            "name": "CSV Reader",
+            "events": null,
+            "description": "### Description\nThe CSV READER component allows reading files in csv format. \n\nYou have the possibility to set a separator using the **Separator** parameter. The **Infer types** parameter allows the automatic transformation of the type of non-textual fields.\n\n### Input\nThe input required by this component is the file path in PosixPath format. However, the file path can also be defined when the component is created, in which case no input is required.\n\n### Output\nThe submitted file is returned row by row, where each row is represented by a dictionary that has the column names as keys.",
+            "inputs": [
+              {
+                "id": "input",
+                "label": "input"
+              }
+            ],
+            "outputs": [
+              {
+                "id": "output",
+                "label": "output"
+              }
+            ],
+            "configured": true,
+            "options": {
+              "group": "Inputs",
+              "args": [
+                {
+                  "name": "comment",
+                  "type": "area",
+                  "label": "Node comment",
+                  "helper": "Use it to explain the usage of this node"
+                },
+                {
+                  "name": "alias",
+                  "type": "text",
+                  "label": "Name",
+                  "helper": "Use this name as an alias"
+                },
+                {
+                  "name": "debug",
+                  "type": "boolean",
+                  "label": "Debug to Console",
+                  "divider": true
+                },
+                {
+                  "name": "value",
+                  "type": "files",
+                  "label": "File",
+                  "fragment": "files",
+                  "helper": "choose a file or read input"
+                },
+                {
+                  "name": "separator",
+                  "type": "text",
+                  "label": "Separator"
+                },
+                {
+                  "name": "df",
+                  "type": "boolean",
+                  "label": "Dask Dataframe"
+                },
+                {
+                  "name": "infer_type",
+                  "type": "boolean",
+                  "label": "Infer types"
+                },
+                {
+                  "name": "propagate",
+                  "type": "boolean",
+                  "label": "Flush at the end"
+                }
+              ],
+              "click": "Send file",
+              "icon": "RiFileChart2Fill",
+              "values": {
+                "comment": "",
+                "alias": "Test",
+                "debug": false,
+                "separator": ",",
+                "df": false,
+                "infer_type": true,
+                "propagate": true,
+                "value": {
+                  "name": "churn_test.csv",
+                  "path": "data/projects/churn_predictions_demo/data/churn_test.csv",
+                  "parent": "data/projects/churn_predictions_demo/data",
+                  "isDir": false,
+                  "hidden": false
+                }
+              }
+            },
+            "locked": null
+          },
+          "selectable": true,
+          "draggable": true,
+          "positionAbsolute": {
+            "x": 564,
+            "y": 325
+          },
+          "__class__": "Node"
+        },
+        {
+          "id": "7855596d-053b-4c26-9e5c-deeec14f054e",
+          "position": {
+            "x": 812,
+            "y": 383
+          },
+          "type": "custom",
+          "dragHandle": "#nodeHandle",
+          "sourcePosition": "right",
+          "targetPosition": "left",
+          "width": 150,
+          "height": 56,
+          "selected": false,
+          "dragging": false,
+          "data": {
+            "name": "Selector",
+            "events": null,
+            "description": "### Description\nThe SELECTOR component is used to select the value of one or more object keys. The required key/s are defined using the parameter **Keys**.\n\nIn order to add other keys you need to click on the **\"Add field\"** button.\n\nIf the field **Ignore Error** is toggled, missing keys are ignored.\n\nIt's also possible to select nested key, just by writing them in a *key* field, and seperating them using a full stop. Let's consider the object in the example below: if you want to have access to the content of the \"key3\" object, you need to use the following notation \"key1.key2.key3\".\n\n\n```json\n {\"key1\":{\"key2\":{\"key3\":[\"val1\", \"val2\", \"val3\"]}}} \n```\n\n\n\n### Input\n\nThe input consists of a dictionary.\n\n\n\n### Output\n\nThe output is the value of the required key of the dictionary received as input, if only one key is selected; otherwise it's an object which contains the keys specified and their value.\n",
+            "inputs": [
+              {
+                "id": "input",
+                "label": "input"
+              }
+            ],
+            "outputs": [
+              {
+                "id": "output",
+                "label": "output"
+              }
+            ],
+            "configured": true,
+            "options": {
+              "group": "Common",
+              "args": [
+                {
+                  "name": "comment",
+                  "type": "area",
+                  "label": "Node comment",
+                  "helper": "Use it to explain the usage of this node"
+                },
+                {
+                  "name": "alias",
+                  "type": "text",
+                  "label": "Name",
+                  "helper": "Use this name as an alias"
+                },
+                {
+                  "name": "debug",
+                  "type": "boolean",
+                  "label": "Debug to Console",
+                  "divider": true
+                },
+                {
+                  "name": "ignore_err",
+                  "label": "Ignor Error",
+                  "type": "boolean",
+                  "description": "Choose whether to ignore error in case of a missing key or not"
+                },
+                {
+                  "name": "exclude",
+                  "label": "Exclude Keys",
+                  "type": "boolean",
+                  "description": "If enabled, the output contains the whole input object excluding the specified keys; otherwise, only the specified keys are returned"
+                },
+                {
+                  "name": "keys",
+                  "label": "Keys",
+                  "type": "multiKeyValue",
+                  "validation": {
+                    "required": "Required field"
+                  },
+                  "description": "Name of the key/s to select from the incoming message",
+                  "fields": [
+                    {
+                      "name": "k",
+                      "placeholder": "key",
+                      "validation": {
+                        "required": "Required field"
+                      }
+                    }
+                  ]
+                }
+              ],
+              "click": null,
+              "icon": "RiCursorFill",
+              "values": {
+                "comment": "We see several features that essentially have 100% correlation with one another. Including these feature pairs in some machine learning algorithms can create catastrophic problems, while in others it will only introduce minor redundancy and bias. Let's remove one feature from each of the highly correlated pairs: Day Charge from the pair with Day Mins, Night Charge from the pair with Night Mins, Intl Charge from the pair with Intl Mins",
+                "alias": "",
+                "debug": false,
+                "ignore_err": false,
+                "exclude": true,
+                "keys": [
+                  {
+                    "k": "Day Charge",
+                    "id": "4196870f-a323-4b0e-b3f5-d1f1e9e16701"
+                  },
+                  {
+                    "k": "Eve Charge",
+                    "id": "519ec243-6cc1-4324-a9c3-c3452aa19e9c"
+                  },
+                  {
+                    "k": "Night Charge",
+                    "id": "5efdd94b-6a8a-4e4b-9a54-c00c41433a23"
+                  },
+                  {
+                    "k": "Intl Charge",
+                    "id": "6a85a2a1-3023-4ccf-81bd-495f2cb84ca8"
+                  },
+                  {
+                    "k": "Phone",
+                    "id": "f8c23388-20ef-4a15-964c-18b17d8aebaf"
+                  },
+                  {
+                    "k": "Churn?",
+                    "id": "7a6aad96-0b43-40db-a12d-8f8a45491e55"
+                  }
+                ]
+              }
+            },
+            "locked": null
+          },
+          "selectable": true,
+          "draggable": true,
+          "positionAbsolute": {
+            "x": 812,
+            "y": 383
+          },
+          "__class__": "Node"
+        },
+        {
+          "id": "5c97d38e-527b-487d-8c07-0a905db78bc7",
+          "position": {
+            "x": 1034.775249709993,
+            "y": 323
+          },
+          "type": "custom",
+          "dragHandle": "#nodeHandle",
+          "sourcePosition": "right",
+          "targetPosition": "left",
+          "width": 150,
+          "height": 72,
+          "selected": false,
+          "dragging": false,
+          "data": {
+            "name": "Function",
+            "events": null,
+            "description": "### Description\nThe FUNCTION component is used to apply Python code to the input component's. The input can be retrieved using the variable *data*.\n\nTo be able to use data from components of type FUNCTION that are not linked together, the object is set repository.\n\n```python\nrepository.set('value', 5) - this sets the variable value to 5.\nrepository.get('value') - in this way the variable is called value and the value 5 is returned.\n```\n\n### Input\nThe input is used by the component using the variable **data**.\n\n### Output\nThe output coincides with the return of the code defined when the component was created.",
+            "inputs": [
+              {
+                "id": "input",
+                "label": "input"
+              }
+            ],
+            "outputs": [
+              {
+                "id": "output",
+                "label": "output"
+              }
+            ],
+            "configured": true,
+            "options": {
+              "group": "Common",
+              "args": [
+                {
+                  "name": "comment",
+                  "type": "area",
+                  "label": "Node comment",
+                  "helper": "Use it to explain the usage of this node"
+                },
+                {
+                  "name": "alias",
+                  "type": "text",
+                  "label": "Name",
+                  "helper": "Use this name as an alias"
+                },
+                {
+                  "name": "debug",
+                  "type": "boolean",
+                  "label": "Debug to Console",
+                  "divider": true
+                },
+                {
+                  "name": "propagate",
+                  "type": "boolean",
+                  "label": "Flush at the end"
+                },
+                {
+                  "name": "notify_warnings",
+                  "type": "boolean",
+                  "label": "Notify warnings"
+                },
+                {
+                  "name": "code",
+                  "type": "code",
+                  "description": "A python function that processes the incoming message. \nVariables available are:\n- **data**: the incoming message\n",
+                  "label": "Code",
+                  "validation": {
+                    "required": "Required field"
+                  },
+                  "fragment": null,
+                  "advanced": false,
+                  "options": null,
+                  "value": null
+                }
+              ],
+              "click": null,
+              "icon": "RiCodeSSlashFill",
+              "values": {
+                "comment": "",
+                "alias": "2Object",
+                "debug": false,
+                "propagate": true,
+                "notify_warnings": true,
+                "code": "row = data.copy()\nrow['Area Code'] = str(row['Area Code'])\nreturn row"
+              }
+            },
+            "locked": null
+          },
+          "selectable": true,
+          "draggable": true,
+          "positionAbsolute": {
+            "x": 1034.775249709993,
+            "y": 323
+          },
+          "__class__": "Node"
+        },
+        {
+          "id": "5b522243-1c6d-4bca-958b-369bd3c370da",
+          "position": {
+            "x": 1360,
+            "y": 244
+          },
+          "type": "custom",
+          "dragHandle": "#nodeHandle",
+          "sourcePosition": "right",
+          "targetPosition": "left",
+          "width": 150,
+          "height": 56,
+          "selected": false,
+          "dragging": false,
+          "data": {
+            "microservice": "predictor",
+            "name": "Predictor",
+            "events": {
+              "type": "predictor",
+              "field": "predictor"
+            },
+            "description": "### Description\nThe PREDICTOR component is one of the most sophisticated in Loko AI, and deals with the training, prediction and evaluation of ML models. \n\nIts configuration and function in the flow are described below to give the user a general understanding of how this can be used.\n\n### Input\nTo transmit the data of the PREDICTOR component as input, you can operate in two ways, choosing to set the parameter **Stream Data** to **True** or **False**.\n\nIn the first case it is possible to pass the samples one at a time: in this way the data will be passed as dictionaries:\n```json\n{\"data\": {\"text\":\"Today is a beautiful day\"}, \"target\": \"class01\"}\n```\n\nIn the second case, ie by setting this parameter as False, the data will be transmitted all at once as a list of dictionaries:\n```json\n{\"data\": [{\"text\":\"Today is a beautiful day\"}, {\"text\":\"Today is a bad day\"}], \"target\": [\"class01\",\"class02\"]}\n```\n\nAnother parameter related to data input is target.\n\nBy setting the name of the target variable, there is no need to split the variables into date and target.\n\nSupposing to read a line of a csv as:\n```json\n{\"text\":\"Today is a beautiful day\", \"label\": \"class01\"}\n```\n\nsetting the target variable to label, the PREDICTOR component will automatically interpret all variables other than the target variable as explanatory and the variable label as the response variable. In this way it is not necessary to divide the data in the two keys before hand data and target.\n\nAs for fit and evaluate of PREDICTOR, it is necessary to supply both the variable data and the variable target.\n\nConversely, as far as concerned Predict is, the target variable is not required.\n\n### Output\nThe output of theservice fit will only provide as response: Job submitted.\n\nThis means that the PREDICTOR training has started correctly. You will be able to check the results obtained through the appropriate dashboard.\n\nAs for the predict, the output is the following:\n```json\n{\"prediction\": \"class01\", \"object\": {\"text\":\"Today is a beautiful day\"}}\n```\n\nFinally, the evaluate has a more complex:\n```json\n{\"tdist\": distribution of the target variable provided\n \"report_test\": metrics used for the evaluation of the model (vary according to the task)\n \"datetime\": date and time\n \"task\": classification or regression\n}\n```",
+            "inputs": [
+              {
+                "id": "fit",
+                "label": "fit",
+                "closed": false
+              },
+              {
+                "id": "predict",
+                "label": "predict"
+              },
+              {
+                "id": "evaluate",
+                "label": "evaluate"
+              }
+            ],
+            "outputs": [
+              {
+                "id": "fit",
+                "label": "fit"
+              },
+              {
+                "id": "predict",
+                "label": "predict"
+              },
+              {
+                "id": "evaluate",
+                "label": "evaluate"
+              }
+            ],
+            "configured": true,
+            "options": {
+              "group": "DS4Biz",
+              "args": [
+                {
+                  "name": "comment",
+                  "type": "area",
+                  "label": "Node comment",
+                  "helper": "Use it to explain the usage of this node"
+                },
+                {
+                  "name": "alias",
+                  "type": "text",
+                  "label": "Name",
+                  "helper": "Use this name as an alias"
+                },
+                {
+                  "name": "debug",
+                  "type": "boolean",
+                  "label": "Debug to Console",
+                  "divider": true
+                },
+                {
+                  "name": "service",
+                  "type": "service",
+                  "label": "Available services",
+                  "fragment": "predictor",
+                  "validation": {
+                    "required": "Required field"
+                  }
+                },
+                {
+                  "name": "predictor",
+                  "type": "dynamic",
+                  "dynamicType": "dependent",
+                  "parent": "service",
+                  "label": "Predictors",
+                  "fragment": "predictors",
+                  "validation": {
+                    "required": "Required field"
+                  }
+                },
+                {
+                  "name": "stream",
+                  "type": "boolean",
+                  "label": "Stream data"
+                },
+                {
+                  "name": "target_y",
+                  "type": "text",
+                  "label": "Target name",
+                  "helper": "Name of the features you want to estimate, if not specified the default feature name is \"target\""
+                },
+                {
+                  "name": "partial_fit",
+                  "type": "boolean",
+                  "label": "Partial fit",
+                  "group": "Fit parameters"
+                },
+                {
+                  "name": "save_dataset",
+                  "type": "select",
+                  "options": [
+                    "yes",
+                    "no"
+                  ],
+                  "label": "Save dataset",
+                  "helper": "save testset to compute the metrics report for partial fit task",
+                  "group": "Fit parameters"
+                },
+                {
+                  "name": "report",
+                  "type": "boolean",
+                  "label": "Compute metrics report",
+                  "group": "Fit parameters"
+                },
+                {
+                  "name": "test_size",
+                  "type": "dynamic",
+                  "dynamicType": "select",
+                  "parent": "report",
+                  "condition": "{parent}===true",
+                  "options": [
+                    0.1,
+                    0.2,
+                    0.3,
+                    0.4,
+                    0.5
+                  ],
+                  "label": "Test size",
+                  "group": "Fit parameters"
+                },
+                {
+                  "name": "cv",
+                  "dynamicType": "select",
+                  "parent": "report",
+                  "condition": "{parent}===true",
+                  "type": "select",
+                  "options": [
+                    0,
+                    2,
+                    3,
+                    4,
+                    5
+                  ],
+                  "label": "Number of folds used for cross-validation",
+                  "group": "Fit parameters"
+                },
+                {
+                  "name": "history_limit",
+                  "type": "select",
+                  "options": [
+                    0,
+                    1,
+                    2,
+                    3,
+                    4,
+                    5,
+                    6,
+                    7,
+                    8,
+                    9,
+                    10
+                  ],
+                  "label": "Number of models to keep saved",
+                  "group": "Fit parameters"
+                },
+                {
+                  "name": "fit_params",
+                  "type": "area",
+                  "label": "Additional fit parameters",
+                  "group": "Fit parameters"
+                },
+                {
+                  "name": "include_probs",
+                  "type": "boolean",
+                  "label": "Predict proba",
+                  "group": "Predict parameters"
+                },
+                {
+                  "name": "predict_branch",
+                  "type": "select",
+                  "options": [
+                    "development",
+                    "master"
+                  ],
+                  "label": "Branch",
+                  "helper": "fit task automatically saves model on development branch",
+                  "group": "Predict parameters"
+                },
+                {
+                  "name": "limit",
+                  "type": "select",
+                  "options": [
+                    -1,
+                    0,
+                    1,
+                    2,
+                    3,
+                    4,
+                    5,
+                    6,
+                    7,
+                    8,
+                    9,
+                    10
+                  ],
+                  "label": "Limit",
+                  "helper": "set to 0 to evalute only last model, set to -1 to evaluate all models in history",
+                  "group": "Evaluate parameters"
+                },
+                {
+                  "name": "eval_branch",
+                  "type": "select",
+                  "options": [
+                    "development",
+                    "master"
+                  ],
+                  "label": "Branch",
+                  "helper": "fit task automatically saves model on development branch",
+                  "group": "Evaluate parameters"
+                },
+                {
+                  "name": "propagate",
+                  "type": "boolean",
+                  "label": "Flush at the end"
+                }
+              ],
+              "click": null,
+              "icon": "RiTyphoonFill",
+              "values": {
+                "comment": "",
+                "alias": "",
+                "debug": true,
+                "stream": true,
+                "target_y": "Churn?",
+                "propagate": true,
+                "partial_fit": false,
+                "save_dataset": "no",
+                "report": true,
+                "cv": "0",
+                "history_limit": "0",
+                "fit_params": "{}",
+                "include_probs": true,
+                "predict_branch": "development",
+                "limit": "0",
+                "eval_branch": "development",
+                "test_size": "0.2",
+                "service": "predictor",
+                "predictor": "churn"
+              }
+            },
+            "disabled": false,
+            "status": "",
+            "locked": null
+          },
+          "selectable": true,
+          "draggable": true,
+          "positionAbsolute": {
+            "x": 1260,
+            "y": 173
+          },
+          "__class__": "Node"
+        }
+      ],
+      "edges": [
+        {
+          "id": "6302b2ca-4fe0-4dff-8165-46a891a3ecc8",
+          "source": "5252a6ca-dd73-49ac-b9ef-937fe7052e73",
+          "sourceHandle": "output",
+          "target": "3c30dc9b-9dc3-4a6a-b0e6-a911a4b92f3a",
+          "targetHandle": "input",
+          "data": {
+            "startColor": "#F8637A",
+            "stopColor": "#D770AD"
+          },
+          "selected": false,
+          "dragging": false,
+          "__class__": "Edge"
+        },
+        {
+          "id": "7031cfb2-4c36-43fc-8a26-1cc3208ff9cc",
+          "source": "3c30dc9b-9dc3-4a6a-b0e6-a911a4b92f3a",
+          "sourceHandle": "output",
+          "target": "f28128f4-99b4-42c2-81b0-04da59e3d95b",
+          "targetHandle": "input",
+          "data": {
+            "startColor": "#D770AD",
+            "stopColor": "#D770AD"
+          },
+          "selected": false,
+          "dragging": false,
+          "__class__": "Edge"
+        },
+        {
+          "id": "68325968-bbee-4dae-ba01-722c8e36c1fd",
+          "source": "8bc68946-29e9-4b38-950d-9ccb534b3d30",
+          "sourceHandle": "output",
+          "target": "7855596d-053b-4c26-9e5c-deeec14f054e",
+          "targetHandle": "input",
+          "data": {
+            "startColor": "#F8637A",
+            "stopColor": "#D770AD"
+          },
+          "selected": false,
+          "dragging": false,
+          "__class__": "Edge"
+        },
+        {
+          "id": "0093ca09-d7d8-4050-a0f4-491b53283c88",
+          "source": "7855596d-053b-4c26-9e5c-deeec14f054e",
+          "sourceHandle": "output",
+          "target": "5c97d38e-527b-487d-8c07-0a905db78bc7",
+          "targetHandle": "input",
+          "data": {
+            "startColor": "#D770AD",
+            "stopColor": "#D770AD"
+          },
+          "selected": false,
+          "dragging": false,
+          "__class__": "Edge"
+        },
+        {
+          "id": "3f004dc7-0cc8-451f-a2c0-956f5653eb51",
+          "source": "f28128f4-99b4-42c2-81b0-04da59e3d95b",
+          "sourceHandle": "output",
+          "target": "5b522243-1c6d-4bca-958b-369bd3c370da",
+          "targetHandle": "fit",
+          "data": {
+            "startColor": "#D770AD",
+            "stopColor": "#FFB300"
+          },
+          "selected": false,
+          "dragging": false,
+          "__class__": "Edge"
+        },
+        {
+          "id": "b048a785-0f1e-4d16-91c2-976aed57885b",
+          "source": "5c97d38e-527b-487d-8c07-0a905db78bc7",
+          "sourceHandle": "output",
+          "target": "5b522243-1c6d-4bca-958b-369bd3c370da",
+          "targetHandle": "predict",
+          "data": {
+            "startColor": "#D770AD",
+            "stopColor": "#FFB300"
+          },
+          "selected": false,
+          "dragging": false,
+          "__class__": "Edge"
+        }
+      ],
+      "__class__": "Graph"
+    }
+  },
+  "open": [
+    "main"
+  ],
+  "active": "main",
+  "version": "1.0.0",
+  "__class__": "Project"
+}
