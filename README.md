@@ -66,7 +66,7 @@ numerical feature `Area Code` to categorical. Finally, all data are sent to the 
 the model training. Ones the model is fitted, you can open the **Predictors** tab and visualize the generated 
 report:
 <p align="center">
-<img src="https://user-images.githubusercontent.com/30443495/231480367-4f7aed74-18f2-42d8-ab64-9bfcda92e6cc.gif" width="80%" />
+<img src="https://github.com/Cecinamo/ner/assets/30443495/e6681def-e143-43df-a2fb-2a245d50f87f" width="80%" />
 </p>
 
 
